@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pixelería — generador procedural de pixel art</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-mode="personaje">
+  <header class="topbar">
+    <div class="brand">
+      <h1>Pixelería</h1>
+      <p>generador procedural de pixel art</p>
+    </div>
+    <nav class="mode-switch" aria-label="Modo de generación">
+      <button type="button" data-mode-btn="personaje" class="active">Personajes</button>
+      <button type="button" data-mode-btn="paisaje">Paisajes</button>
+    </nav>
+  </header>
+
+  <main class="layout">
+    <aside class="controls">
+      <section class="control-group" data-panel="personaje">
+        <label>Tamaño
+          <select id="char-size">
+            <option value="16">16 × 16</option>
+            <option value="24" selected>24 × 24</option>
+            <option value="32">32 × 32</option>
+          </select>
+        </label>
+        <label>Paleta
+          <select id="char-palette"></select>
+        </label>
+        <label>Densidad <output id="char-density-value">48</output>
+          <input type="range" id="char-density" min="35" max="62" value="48">
+        </label>
+        <label class="check"><input type="checkbox" id="char-outline" checked> Contorno</label>
+        <label class="check"><input type="checkbox" id="char-eyes" checked> Ojos</label>
+      </section>
+
+      <section class="control-group" data-panel="paisaje" hidden>
+        <label>Tamaño
+          <select id="land-size">
+            <option value="64x48">64 × 48</option>
+            <option value="96x64" selected>96 × 64</option>
+            <option value="128x96">128 × 96</option>
+          </select>
+        </label>
+        <label>Momento del día
+          <select id="land-theme">
+            <option value="amanecer">Amanecer</option>
+            <option value="dia">Día</option>
+            <option value="atardecer" selected>Atardecer</option>
+            <option value="noche">Noche</option>
+          </select>
+        </label>
+        <label>Capas de montañas <output id="land-layers-value">3</output>
+          <input type="range" id="land-layers" min="1" max="4" value="3">
+        </label>
+        <label>Primer plano
+          <select id="land-foreground">
+            <option value="agua" selected>Agua</option>
+            <option value="pradera">Pradera</option>
+          </select>
+        </label>
+        <label id="land-trees-label" hidden>Vegetación <output id="land-trees-value">4</output>
+          <input type="range" id="land-trees" min="0" max="10" value="4">
+        </label>
+        <label class="check"><input type="checkbox" id="land-clouds" checked> Nubes</label>
+      </section>
+
+      <section class="control-group seed-group">
+        <label>Semilla
+          <span class="seed-row">
+            <input type="text" id="seed" spellcheck="false" maxlength="8">
+            <button type="button" id="reroll" title="Semilla aleatoria">⚄</button>
+          </span>
+        </label>
+        <button type="button" id="generate" class="primary">Generar nuevo</button>
+      </section>
+    </aside>
+
+    <section class="stage">
+      <div class="canvas-frame" id="canvas-frame">
+        <canvas id="preview"></canvas>
+      </div>
+      <div class="stage-bar">
+        <span class="dims" id="dims"></span>
+        <label class="inline">Escala
+          <select id="export-scale">
+            <option value="4">4×</option>
+            <option value="8" selected>8×</option>
+            <option value="16">16×</option>
+          </select>
+        </label>
+        <button type="button" id="download">Descargar PNG</button>
+      </div>
+      <div class="history" id="history" aria-label="Historial de generaciones"></div>
+    </section>
+  </main>
+
+  <script src="js/rng.js"></script>
+  <script src="js/color.js"></script>
+  <script src="js/palettes.js"></script>
+  <script src="js/character.js"></script>
+  <script src="js/landscape.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

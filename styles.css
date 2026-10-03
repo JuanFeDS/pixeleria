@@ -1,0 +1,334 @@
+:root {
+  --bg: #12141c;
+  --panel: #1a1d27;
+  --panel-2: #222636;
+  --border: #2d3244;
+  --text: #e9e7de;
+  --muted: #8b90a5;
+  --accent: #ffb454;
+  --accent-ink: #241300;
+  --font-pixel: 'Silkscreen', 'Courier New', monospace;
+  --font-body: system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+body[data-mode='paisaje'] {
+  --accent: #5fd4b2;
+  --accent-ink: #04201a;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 15px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.brand h1 {
+  font-family: var(--font-pixel);
+  font-size: 22px;
+  letter-spacing: 2px;
+  color: var(--accent);
+  text-transform: uppercase;
+  transition: color 200ms;
+}
+
+.brand p {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+.mode-switch {
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.mode-switch button {
+  font-family: var(--font-pixel);
+  font-size: 12px;
+  padding: 9px 18px;
+  background: var(--panel);
+  color: var(--muted);
+  border: none;
+  cursor: pointer;
+}
+
+.mode-switch button.active {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.layout {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 0;
+  min-height: 0;
+}
+
+.controls {
+  border-right: 1px solid var(--border);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  background: var(--panel);
+  overflow-y: auto;
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.control-group label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.control-group label.check {
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.control-group output {
+  float: right;
+  font-family: var(--font-pixel);
+  color: var(--accent);
+  font-size: 11px;
+}
+
+select,
+input[type='text'] {
+  background: var(--panel-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 8px 10px;
+  font-family: var(--font-body);
+  font-size: 14px;
+}
+
+input[type='text'] {
+  font-family: var(--font-pixel);
+  font-size: 12px;
+  letter-spacing: 1px;
+  width: 100%;
+}
+
+input[type='range'] {
+  accent-color: var(--accent);
+  width: 100%;
+}
+
+input[type='checkbox'] {
+  accent-color: var(--accent);
+  width: 15px;
+  height: 15px;
+}
+
+.seed-group {
+  margin-top: auto;
+  border-top: 1px solid var(--border);
+  padding-top: 18px;
+}
+
+.seed-row {
+  display: flex;
+  gap: 6px;
+}
+
+.seed-row button {
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  color: var(--accent);
+  font-size: 18px;
+  width: 40px;
+  cursor: pointer;
+}
+
+.seed-row button:hover {
+  border-color: var(--accent);
+}
+
+button.primary {
+  font-family: var(--font-pixel);
+  font-size: 13px;
+  padding: 12px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+button.primary:hover {
+  filter: brightness(1.1);
+}
+
+.stage {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: 20px;
+  gap: 14px;
+}
+
+.canvas-frame {
+  flex: 1;
+  min-height: 240px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  background:
+    repeating-conic-gradient(#191c26 0% 25%, #21242f 0% 50%) 0 0 / 20px 20px;
+  overflow: hidden;
+}
+
+#preview {
+  image-rendering: pixelated;
+  animation: pop 180ms ease-out;
+}
+
+@keyframes pop {
+  from { transform: scale(0.96); opacity: 0.4; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #preview { animation: none; }
+}
+
+.stage-bar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.dims {
+  font-family: var(--font-pixel);
+  font-size: 11px;
+  color: var(--muted);
+  margin-right: auto;
+}
+
+label.inline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+#download {
+  background: var(--panel-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 9px 16px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+#download:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.history {
+  display: flex;
+  gap: 8px;
+  min-height: 62px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.history:empty::after {
+  content: 'El historial de generaciones aparecerá aquí';
+  color: var(--muted);
+  font-size: 12px;
+  align-self: center;
+}
+
+.history button {
+  flex: 0 0 auto;
+  width: 56px;
+  height: 56px;
+  padding: 3px;
+  background:
+    repeating-conic-gradient(#191c26 0% 25%, #21242f 0% 50%) 0 0 / 10px 10px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.history button:hover,
+.history button.current {
+  border-color: var(--accent);
+}
+
+.history canvas {
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+  object-fit: contain;
+}
+
+button:focus-visible,
+select:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+@media (max-width: 760px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+  .controls {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+  .seed-group {
+    margin-top: 0;
+  }
+}
